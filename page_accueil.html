@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projaide</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #bce2f6;
+            background-image: url(backround.png);
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+        .container {
+            background-color: rgb(174, 180, 183);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            width: 300px;
+            text-align: center;
+        }
+        textarea {
+            width: 100%;
+            height: 100px;
+            margin-bottom: 10px;
+            resize: none;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+        .blink {
+            animation: blink 1s linear infinite;
+        }
+        @keyframes blink {
+            0% { opacity: 1; }
+            50% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+        .hidden {
+            display: none;
+        }
+        #fakeSlider {
+            width: 100%;
+            margin-bottom: 10px;
+        }
+        #links ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        #links li {
+            margin-bottom: 5px;
+        }
+        #links a {
+            color: #000000;
+            text-decoration: none;
+        }
+        #links a:hover {
+            text-decoration: underline;
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+        }
+        .modal-content {
+            background-color: white;
+            margin: 15% auto;
+            padding: 20px;
+            border-radius: 10px;
+            width: 300px;
+            position: relative;
+        }
+        .close-area {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 30px;
+            height: 30px;
+            cursor: pointer;
+        }
+        .close {
+            display: none;
+            position: absolute;
+            top: 5px;
+            right: 10px;
+            font-size: 20px;
+        }
+        .close-area:hover .close {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div id="home">
+            <h1>Bienvenue sur le Site qui vous aide pour vos Projets Universitaires</h1>
+            <button id="startButton" class="blink">Commencer le projet</button>
+            <p id="congratsMessage" class="hidden">Félicitations ! Vous avez déjà fait 0.001% du travail !</p>
+        </div>
+
+        <div id="fakePage" class="hidden">
+            <h2>Entrez votre idée de projet</h2>
+            <textarea id="fakeProjectIdea"></textarea>
+            <input type="range" min="0" max="100" value="49" id="fakeSlider">
+            <button id="fakeSubmit">Envoyer</button>
+            <button id="fakeQuit">Quitter</button>
+        </div>
+
+        <div id="realPage" class="hidden">
+            <h2>Entrez votre idée de projet (pour de vrai cette fois)</h2>
+            <textarea id="realProjectIdea"></textarea>
+            <button id="realSubmit">Envoyer</button>
+        </div>
+
+        <div id="links" class="hidden">
+            <h2>Liens utiles pour votre projet</h2>
+            <ul>
+                <li><a href="#" class="fakeLink">Codes source</a></li>
+                <li><a href="#" class="fakeLink">Vidéos tutoriels </a></li>
+                <li><a href="#" class="fakeLink">Article de référence</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div id="message" class="message hidden">
+        <h2>Message important</h2>
+        <p>
+            En réalité, le but des projets universitaires est de permettre aux étudiants de mettre en pratique leurs connaissances, de développer des compétences en gestion, recherche et travail d'équipe, et de se préparer à la vie professionnelle. Ils favorisent également la réflexion critique et l'interdisciplinarité.
+        </p>
+    </div>
+
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <p>Opp opp opp désolé, maintenant ça va marcher . non mais vraiment</p>
+            <div class="close-area">
+                <span class="close">&times;</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const startButton = document.getElementById('startButton');
+        const congratsMessage = document.getElementById('congratsMessage');
+        const home = document.getElementById('home');
+        const fakePage = document.getElementById('fakePage');
+        const fakeSlider = document.getElementById('fakeSlider');
+        const fakeSubmit = document.getElementById('fakeSubmit');
+        const fakeQuit = document.getElementById('fakeQuit');
+        const realPage = document.getElementById('realPage');
+        const realSubmit = document.getElementById('realSubmit');
+        const links = document.getElementById('links');
+        const modal = document.getElementById('modal');
+        const closeArea = document.querySelector('.close-area');
+        const message = document.getElementById('message');
+        
+        startButton.onclick = function() {
+            home.classList.add('hidden');
+            fakePage.classList.remove('hidden');
+            congratsMessage.classList.remove('hidden');
+        }
+
+        fakeSlider.oninput = function() {
+            this.value = 49;
+        }
+
+        fakeSubmit.onclick = function() {
+            alert("Désolé, une erreur s'est produite. Veuillez réessayer plus tard.");
+        }
+
+        fakeQuit.onclick = function() {
+            modal.style.display = 'block';
+        }
+
+        closeArea.onclick = function() {
+            modal.style.display = 'none';
+            fakePage.classList.add('hidden');
+            realPage.classList.remove('hidden');
+        }
+
+        realSubmit.onclick = function() {
+            if (document.getElementById('realProjectIdea').value.trim() !== '') {
+                realPage.classList.add('hidden');
+                links.classList.remove('hidden');
+            } else {
+                alert("Veuillez entrer une idée avant de soumettre.");
+            }
+        }
+
+        document.querySelectorAll('.fakeLink').forEach(link => {
+            link.onclick = function(e) {
+                e.preventDefault();
+                links.classList.add('hidden');
+                message.classList.remove('hidden');
+            }
+        });
+    </script>
+</body>
+</html>
