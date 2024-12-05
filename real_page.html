@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Soumission d'idée de projet</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color:#bce2f6;
+        }
+        .container {
+            background-color: rgb(160, 218, 241);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            width: 300px;
+        }
+        textarea {
+            width: 100%;
+            height: 100px;
+            margin-bottom: 10px;
+            resize: none;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+
+        #recommendations {
+            margin-top: 20px;
+            display: none;
+        }
+        #recommendations h3 {
+            margin-bottom: 10px;
+        }
+        #recommendations ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        #recommendations li {
+            margin-bottom: 5px;
+        }
+        #recommendations a {
+            color: #000000;
+            text-decoration: none;
+        }
+        #recommendations a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Soumettez votre idée de projet</h2>
+        <textarea id="idea" placeholder="Entrez votre idée ici..."></textarea>
+        <button id="submit">Envoyer</button>
+
+        <div id="recommendations">
+            <h3>Recommandations pour votre projet :</h3>
+            <ul>
+                <li><a href="message.html">Codes source</a></li>
+                <li><a href="message.html">Vidéos tutoriels </a></li>
+                <li><a href="message.html">Article de référence</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        const submitBtn = document.getElementById('submit');
+        const ideaTextarea = document.getElementById('idea');
+        const recommendations = document.getElementById('recommendations');
+
+        submitBtn.addEventListener('click', () => {
+            if (ideaTextarea.value.trim() !== '') {
+                alert("Votre idée a été soumise avec succès !");
+                recommendations.style.display = 'block';  
+                ideaTextarea.value = '';  
+            } else {
+                alert("Veuillez entrer une idée avant de soumettre.");
+            }
+        });
+    </script>
+</body>
+</html>
